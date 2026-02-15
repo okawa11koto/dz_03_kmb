@@ -1,24 +1,7 @@
 - hosts: localhost
-  become: yes
-  vars:
-    port: 8080
+  gather_facts: no
 
   tasks:
-    - apt:
-        name: nginx
-        state: present
-        update_cache: yes
-
-    - template:
-        src: nginx.conf.j2
-        dest: /etc/nginx/sites-available/simple
-
-    - file:
-        src: /etc/nginx/sites-available/simple
-        dest: /etc/nginx/sites-enabled/simple
-        state: link
-        force: yes
-
-    - service:
-        name: nginx
-        state: restarted
+    - name: custom module
+      my_module:
+        port: 80
